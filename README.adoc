@@ -1,0 +1,30 @@
+== kafka-sv-overrider.py
+
+This script helps configuring overrides for the kafka.property safety valve for all the Kafka brokers in a CDP cluster. It's useful to quickly set safety valve overrides for all the hosts that differ from each other due to references to the local hostname.
+
+The script takes a template as an argument. The content of the template file is used to update the overrides for each Kafka broker safety valve. This template can have the plaholder `HOSTNAME` in one or more places, which will be replaced with the local broker hostname upon the property update. The script creates a backup file of the previous settings, which can be used to restore the original settings if needed.
+
+=== Usage
+
+==== Override
+
+python kafka-sv-overrider.py \
+  --cm-url https://cm-host.acme.com:7183 \
+  --username admin \
+  --tls-ca-cert /etc/ipa/ca.crt \
+  --cluster-name OneNodeCluster \
+  --service-name kafka \
+  --override \
+  --backup-file backup.json \
+  --template template.txt
+
+==== Restore
+
+python kafka-sv-overrider.py \
+  --cm-url https://cm-host.acme.com:7183 \
+  --username admin \
+  --tls-ca-cert /etc/ipa/ca.crt \
+  --cluster-name OneNodeCluster \
+  --service-name kafka \
+  --restore \
+  --backup-file backup.json

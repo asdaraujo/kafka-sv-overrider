@@ -1,0 +1,17 @@
+group.max.session.timeout.ms=1260000
+listeners=SASL_PLAINTEXT://HOSTNAME:9095,SASL_SSL://HOSTNAME:9093,LB://HOSTNAME:9094,LB_PLAINTEXT://HOSTNAME:9092
+advertised.listeners=SASL_PLAINTEXT://HOSTNAME:9095,SASL_SSL://HOSTNAME:9093,LB://HOSTNAME:9093,LB_PLAINTEXT://HOSTNAME:9095
+listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL,LB:SASL_SSL,LB_PLAINTEXT:SASL_PLAINTEXT
+
+listener.name.lb.plain.sasl.server.callback.handler.class=org.apache.kafka.common.security.ldap.internals.LdapPlainServerCallbackHandler
+listener.name.lb.sasl.enabled.mechanisms=GSSAPI,PLAIN
+
+listener.name.lb_plaintext.gssapi.sasl.jaas.config=com.sun.security.auth.module.Krb5LoginModule required doNotPrompt=true useKeyTab=true storeKey=true keyTab="{{CMF_CONF_DIR}}/kafka.keytab" principal="kafka/kafka-lb.acme.com@ACME.COM";
+listener.name.lb_plaintext.plain.sasl.server.callback.handler.class=org.apache.kafka.common.security.ldap.internals.LdapPlainServerCallbackHandler
+listener.name.lb_plaintext.sasl.enabled.mechanisms=GSSAPI,PLAIN
+
+listener.name.sasl_ssl.gssapi.sasl.jaas.config=com.sun.security.auth.module.Krb5LoginModule required doNotPrompt=true useKeyTab=true storeKey=true keyTab="{{CMF_CONF_DIR}}/kafka.keytab" principal="kafka/HOSTNAME@ACME.COM";
+
+listener.name.sasl_plaintext.gssapi.sasl.jaas.config=com.sun.security.auth.module.Krb5LoginModule required doNotPrompt=true useKeyTab=true storeKey=true keyTab="{{CMF_CONF_DIR}}/kafka.keytab" principal="kafka/HOSTNAME@ACME.COM";
+listener.name.sasl_plaintext.plain.sasl.server.callback.handler.class=org.apache.kafka.common.security.ldap.internals.LdapPlainServerCallbackHandler
+listener.name.sasl_plaintext.sasl.enabled.mechanisms=GSSAPI,PLAIN
