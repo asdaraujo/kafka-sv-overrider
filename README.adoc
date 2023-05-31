@@ -8,6 +8,8 @@ The script takes a template as an argument. The content of the template file is 
 
 ==== Override
 
+[source,shell]
+----
 python kafka-sv-overrider.py \
   --cm-url https://cm-host.acme.com:7183 \
   --username admin \
@@ -17,9 +19,12 @@ python kafka-sv-overrider.py \
   --override \
   --backup-file backup.json \
   --template template.txt
+----
 
 ==== Restore
 
+[source,shell]
+----
 python kafka-sv-overrider.py \
   --cm-url https://cm-host.acme.com:7183 \
   --username admin \
@@ -28,3 +33,4 @@ python kafka-sv-overrider.py \
   --service-name kafka \
   --restore \
   --backup-file backup.json
+----
